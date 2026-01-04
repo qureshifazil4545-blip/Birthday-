@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sharmin's Birthday</title>
+<style>
+  body {
+    background: pink;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  h1 { font-size: 2em; margin-top: 40px; color: white; }
+  #countdown { font-size: 1.5em; margin: 20px; }
+  button {
+    background: #ff66b2;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .hidden { display: none; }
+  .cake, .balloons, .message { margin-top: 30px; }
+  .balloon {
+    width: 40px; height: 60px;
+    background: #ff8dc7;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -100px;
+    animation: floatUp 5s infinite ease-in;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-800px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Countdown to Sharmin's Special Birthday 🎂</h1>
+<p>You mean more to me than words can express 💗</p>
+<div id="countdown"></div>
+<p>Special celebration awaits you at midnight 💫</p>
+<button id="startBtn">Let's Celebrate</button>
+
+<div id="celebration" class="hidden">
+  <h1>🎉 Happy Birthday Sharmin 🎉</h1>
+  <div class="cake">🎂🎂🎂</div>
+  <p>Ready for your surprise?</p>
+  <button id="nextBtn">Next</button>
+</div>
+
+<div id="messageSection" class="hidden">
+  <h2>💖 From My Heart 💖</h2>
+  <p>
+    You are not just someone I talk to — you are my everything in the calmest and most meaningful way.  
+    It’s been 309 days since we are in a relationship and 339 days since we started talking.  
+    Real connection isn’t about drama — it’s about understanding, patience, and choosing each other every day.  
+    You matter to me more than words. Not because of attachment, but because of respect, trust, and peace in your presence.  
+    I know I’ve been hard on you at times — I’m sorry.  
+    You are special, valuable, and you mean a lot to me, deeply and truly. 💗
+  </p>
+  <button onclick="playMusic()">Turn on Music 🎵</button>
+  <audio id="bgMusic" src="music.mp3"></audio>
+</div>
+
+<script>
+  const countdown = document.getElementById('countdown');
+  const startBtn = document.getElementById('startBtn');
+  const celebration = document.getElementById('celebration');
+  const nextBtn = document.getElementById('nextBtn');
+  const messageSection = document.getElementById('messageSection');
+  const bgMusic = document.getElementById('bgMusic');
+
+  const targetDate = new Date('Jan 5, 2026 00:00:00').getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    if (distance < 0) {
+      countdown.innerHTML = "🎉 It's Sharmin's Birthday! 🎉";
+    }
+  }, 1000);
+
+  startBtn.addEventListener('click', () => {
+    startBtn.classList.add('hidden');
+    celebration.classList.remove('hidden');
+    createBalloons(15);
+  });
+
+  nextBtn.addEventListener('click', () => {
+    celebration.classList.add('hidden');
+    messageSection.classList.remove('hidden');
+  });
+
+  function playMusic() {
+    bgMusic.play();
+  }
+
+  function createBalloons(num) {
+    for (let i = 0; i < num; i++) {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = Math.random() * window.innerWidth + 'px';
+      balloon.style.background = `hsl(${Math.random() * 360}, 80%, 70%)`;
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 6000);
+    }
+  }
+</script>
+</body>
+</html>
