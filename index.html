@@ -9,7 +9,7 @@
 body{
   margin:0;
   height:100vh;
-  background:linear-gradient(#ffb6c1,#ff69b4);
+  background:linear-gradient(#ffc0cb,#ff69b4);
   font-family:'Segoe UI',sans-serif;
   color:#fff;
   text-align:center;
@@ -19,8 +19,8 @@ body{
 .active{display:block;}
 
 button{
-  margin-top:20px;
-  padding:14px 35px;
+  margin-top:25px;
+  padding:14px 38px;
   border:none;
   border-radius:30px;
   font-size:1.1rem;
@@ -31,14 +31,25 @@ button{
 h1{font-size:2.4rem;}
 h2{font-weight:400;}
 
-.cake{font-size:7rem;animation:bounce 1.5s infinite;}
+.cake{font-size:7rem;animation:bounce 1.5s infinite}
 
-/* HEARTS */
-.heart{
-  position:absolute;
-  bottom:-50px;
-  font-size:2rem;
-  animation:float 6s linear infinite;
+/* COUNTDOWN BOXES */
+.countdown{
+  display:flex;
+  justify-content:center;
+  gap:15px;
+  margin:20px 0;
+}
+.box{
+  background:rgba(255,255,255,0.25);
+  padding:15px 18px;
+  border-radius:15px;
+  min-width:80px;
+}
+.box span{
+  font-size:1.6rem;
+  font-weight:bold;
+  display:block;
 }
 
 /* BALLOONS */
@@ -46,15 +57,23 @@ h2{font-weight:400;}
   position:absolute;
   bottom:-150px;
   font-size:3rem;
-  animation:fly 7s linear infinite;
+  animation:fly 8s linear infinite;
 }
 
-/* FLOWERS */
-.flower{
+/* FLOWERS + CONFETTI */
+.fall{
   position:absolute;
   top:-50px;
+  font-size:1.8rem;
+  animation:fall 10s linear infinite;
+}
+
+/* HEARTS */
+.heart{
+  position:absolute;
+  bottom:-40px;
   font-size:2rem;
-  animation:fall 9s linear infinite;
+  animation:float 6s linear infinite;
 }
 
 /* MESSAGE */
@@ -71,33 +90,17 @@ h2{font-weight:400;}
   margin-top:30px;
   font-size:2.8rem;
   font-weight:bold;
-  color:#fff;
   text-shadow:0 0 15px #fff,0 0 30px #ff3366;
   animation:pulse 2.5s infinite;
 }
 
-@keyframes bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
-}
-@keyframes fly{
-  to{transform:translateY(-120vh)}
-}
-@keyframes float{
-  to{transform:translateY(-120vh)}
-}
-@keyframes fall{
-  to{transform:translateY(120vh)}
-}
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
-@keyframes pulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(1.08)}
-  100%{transform:scale(1)}
-}
+/* ANIMATIONS */
+@keyframes bounce{50%{transform:translateY(-20px)}}
+@keyframes fly{to{transform:translateY(-120vh)}}
+@keyframes fall{to{transform:translateY(120vh)}}
+@keyframes float{to{transform:translateY(-120vh)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulse{50%{transform:scale(1.08)}}
 </style>
 </head>
 
@@ -108,9 +111,16 @@ h2{font-weight:400;}
   <h1>Counting down to Sharmin’s special birthday 🎂</h1>
   <div class="cake">🎂</div>
   <h2>You mean more to me than words can express</h2>
-  <h2 id="countdown"></h2>
+
+  <div class="countdown">
+    <div class="box"><span id="d">0</span>Days</div>
+    <div class="box"><span id="h">0</span>Hours</div>
+    <div class="box"><span id="m">0</span>Min</div>
+    <div class="box"><span id="s">0</span>Sec</div>
+  </div>
+
   <p>✨ A special celebration awaits you at midnight ✨</p>
-  <button onclick="go(1,2)">Let’s Celebrate 💕</button>
+  <button onclick="start()">Let’s Celebrate 💕</button>
 </div>
 
 <!-- SLIDE 2 -->
@@ -148,17 +158,17 @@ h2{font-weight:400;}
 <!-- FINAL SLIDE -->
 <div class="slide" id="s6">
 
-  <!-- Flowers -->
-  <div class="flower" style="left:15%">🌸</div>
-  <div class="flower" style="left:35%">🌸</div>
-  <div class="flower" style="left:55%">🌸</div>
-  <div class="flower" style="left:75%">🌸</div>
+  <!-- Falling flowers & ribbons -->
+  <div class="fall" style="left:10%">🌸</div>
+  <div class="fall" style="left:30%">🤍</div>
+  <div class="fall" style="left:50%">🎀</div>
+  <div class="fall" style="left:70%">🌸</div>
+  <div class="fall" style="left:90%">🤍</div>
 
   <!-- Hearts -->
-  <div class="heart" style="left:20%">❤️</div>
-  <div class="heart" style="left:40%">❤️</div>
-  <div class="heart" style="left:60%">❤️</div>
-  <div class="heart" style="left:80%">❤️</div>
+  <div class="heart" style="left:25%">❤️</div>
+  <div class="heart" style="left:45%">❤️</div>
+  <div class="heart" style="left:65%">❤️</div>
 
   <h1>Happy Birthday Sharmin 🎂💗</h1>
   <div class="cake">🎂</div>
@@ -190,34 +200,26 @@ h2{font-weight:400;}
 <script>
 const target=new Date("2026-01-05T00:00:00").getTime();
 setInterval(()=>{
-  const now=new Date().getTime();
-  let d=target-now; if(d<0)d=0;
-  const days=Math.floor(d/(1000*60*60*24));
-  const hrs=Math.floor((d/(1000*60*60))%24);
-  const min=Math.floor((d/(1000*60))%60);
-  const sec=Math.floor((d/1000)%60);
-  document.getElementById("countdown").innerHTML=
-    `${days} Days ${hrs} Hours ${min} Minutes ${sec} Seconds`;
+  const n=new Date().getTime();
+  let d=target-n; if(d<0)d=0;
+  document.getElementById("d").innerText=Math.floor(d/86400000);
+  document.getElementById("h").innerText=Math.floor(d/3600000)%24;
+  document.getElementById("m").innerText=Math.floor(d/60000)%60;
+  document.getElementById("s").innerText=Math.floor(d/1000)%60;
 },1000);
 
+function start(){
+  const m=document.getElementById("music");
+  m.volume=0; m.play().catch(()=>{});
+  let v=0;
+  const f=setInterval(()=>{ if(v<1){v+=0.05;m.volume=v}else clearInterval(f)},200);
+  go(1,2);
+}
 function go(a,b){
   document.getElementById("s"+a).classList.remove("active");
   document.getElementById("s"+b).classList.add("active");
 }
-
-function lightOn(){
-  document.getElementById("s5").classList.remove("active");
-  document.getElementById("s6").classList.add("active");
-  const music=document.getElementById("music");
-  music.volume=0;
-  music.play().catch(()=>{});
-  let v=0;
-  const fade=setInterval(()=>{
-    if(v<1){v+=0.05; music.volume=v;}
-    else clearInterval(fade);
-  },200);
-}
-
+function lightOn(){go(5,6);}
 function showHeart(){
   document.getElementById("finalMessage").style.display="block";
 }
