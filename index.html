@@ -8,64 +8,62 @@
 <style>
 body{
   margin:0;
+  height:100vh;
   background:linear-gradient(#ffb6c1,#ff69b4);
   font-family:'Segoe UI',sans-serif;
-  color:#fff;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   text-align:center;
-  overflow:hidden;
 }
+
 .slide{
   display:none;
-  padding:25px;
-  max-width:900px;
-  margin:auto;
+  width:100%;
+  padding:20px;
 }
+
 .active{display:block}
+
+h1{font-size:2rem;margin-bottom:10px}
+h2{font-size:1.2rem;font-weight:400}
 
 button{
   margin-top:20px;
-  padding:14px 35px;
+  padding:12px 28px;
   border:none;
-  border-radius:30px;
-  font-size:1.05rem;
+  border-radius:25px;
   background:#ff3366;
-  color:#fff;
+  color:white;
+  font-size:1rem;
 }
 
-h1{font-size:2.1rem}
-h2{font-weight:400}
-
-.cake-big{
-  font-size:9rem;
-  animation:bounce 1.5s infinite;
+.cake{
+  font-size:6rem;
+  margin:15px 0;
+  animation:bounce 1.4s infinite;
 }
 
-.heart, .flower{
-  position:absolute;
-  bottom:-50px;
-  font-size:2rem;
-  animation:float 6s linear infinite;
+.big-cake{
+  font-size:8rem;
+  animation:bounce 1.2s infinite;
 }
 
 @keyframes bounce{
   0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-20px)}
-}
-@keyframes float{
-  to{transform:translateY(-120vh)}
+  50%{transform:translateY(-15px)}
 }
 
-.message-box{
+.box{
   background:rgba(255,255,255,0.2);
-  padding:25px;
-  border-radius:20px;
-  margin-top:20px;
+  padding:18px;
+  border-radius:15px;
+  margin-top:15px;
 }
-img{
-  width:90%;
-  max-width:350px;
-  border-radius:20px;
-  margin-top:20px;
+
+.count{
+  font-size:3rem;
 }
 </style>
 </head>
@@ -75,94 +73,76 @@ img{
 <!-- SLIDE 1 -->
 <div class="slide active" id="s1">
   <h1>Counting down to Sharmin’s birthday 🎂</h1>
-  <h2 id="countdown"></h2>
-  <button onclick="go(1,2)">Start 💕</button>
+  <div class="cake">🎂</div>
+  <h2 id="timer"></h2>
+  <button onclick="go(1,2)">Let’s Begin 💕</button>
 </div>
 
 <!-- SLIDE 2 -->
 <div class="slide" id="s2">
-  <h1>Happy Birthday Sharmin 🎉</h1>
-  <h2>Something special is waiting for you… ✨</h2>
+  <h1>Happy Birthday Sharmin 🎉💗</h1>
+  <div class="cake">🎂</div>
+  <h2>Something special is waiting… ✨</h2>
   <button onclick="go(2,3)">Next 🎈</button>
 </div>
 
-<!-- SLIDE 3 -->
+<!-- SLIDE 3 (3-2-1) -->
 <div class="slide" id="s3">
-  <h1>Hope you will like it 💖</h1>
-  <h2 id="count321">3</h2>
+  <h2>Get ready…</h2>
+  <div class="count" id="count321">3</div>
 </div>
 
 <!-- SLIDE 4 -->
 <div class="slide" id="s4">
-  <h1>Turn on the light 💡</h1>
-  <button onclick="go(4,5)">Turn On ❤️</button>
-</div>
-
-<!-- SLIDE 5 -->
-<div class="slide" id="s5">
   <h1>🎉🎂 HAPPY BIRTHDAY 🎂🎉</h1>
-  <div class="cake-big">🎂</div>
-  <p>🎈✨💖🎉🎊✨🎈</p>
-  <button onclick="go(5,6)">From My Heart 💗</button>
+  <div class="big-cake">🎂</div>
+  <p>🎈✨💖🎊✨🎈</p>
+  <button onclick="go(4,5)">From My Heart 🤍</button>
 </div>
 
-<!-- SLIDE 6 -->
-<div class="slide" id="s6">
-  <h1>Happy Birthday Sharmin 💕</h1>
+<!-- SLIDE 5 (FINAL MESSAGE) -->
+<div class="slide" id="s5">
+  <h1>Sharmin 💗</h1>
+  <div class="box">
+    You are not just someone I talk to,<br>
+    you are my everything in the calmest way.<br><br>
 
-  <div class="message-box">
-    You are not just someone I talk to,  
-    you are my everything in the calmest way.  
-    <br><br>
-    It’s been 309 days of us,  
-    and 339 days since we started talking.  
-    <br><br>
-    You bring peace, respect, and meaning into my life.  
-    <br><br>
-    I’m sorry for the times I hurt you.  
-    You are special. You are valuable.  
-    <br><br>
-    I LOVE YOU 3000 ❤️
+    It’s been 309 days of us and 339 days since we started talking.<br><br>
+
+    Real connection is patience, understanding,<br>
+    and choosing each other every day.<br><br>
+
+    I’m sorry for the times I hurt you.<br>
+    You are special. You are valuable.<br><br>
+
+    <b>I LOVE YOU 3000 ❤️</b>
   </div>
-
-  <button onclick="go(6,7)">One Last Surprise ✨</button>
-</div>
-
-<!-- SLIDE 7 -->
-<div class="slide" id="s7">
-  <h1>Just one more thing… 💗</h1>
-  <p>Look carefully ✨</p>
-
-  <img src="photo.jpg" alt="For You 💖">
-
-  <p style="margin-top:15px;font-size:1.1rem">
-    Always yours ❤️
-  </p>
 </div>
 
 <audio id="music" src="music.mp3"></audio>
 
 <script>
-// Countdown date
+/* Countdown */
 const target=new Date("2026-01-05T00:00:00").getTime();
 setInterval(()=>{
   const now=new Date().getTime();
   let d=target-now; if(d<0)d=0;
-  const hrs=Math.floor((d/(1000*60*60))%24);
-  const min=Math.floor((d/(1000*60))%60);
-  const sec=Math.floor((d/1000)%60);
-  document.getElementById("countdown").innerHTML=
-    `${hrs}h ${min}m ${sec}s`;
+  const h=Math.floor((d/(1000*60*60))%24);
+  const m=Math.floor((d/(1000*60))%60);
+  const s=Math.floor((d/1000)%60);
+  document.getElementById("timer").innerHTML=`${h}h ${m}m ${s}s`;
 },1000);
 
-// Slide switch
+/* Slide change */
 function go(a,b){
   document.getElementById("s"+a).classList.remove("active");
   document.getElementById("s"+b).classList.add("active");
-  if(b===5) document.getElementById("music").play().catch(()=>{});
+  if(b===4){
+    document.getElementById("music").play().catch(()=>{});
+  }
 }
 
-// 3–2–1 countdown
+/* 3-2-1 */
 let n=3;
 setInterval(()=>{
   const el=document.getElementById("count321");
