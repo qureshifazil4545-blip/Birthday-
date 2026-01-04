@@ -6,91 +6,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
-  min-height:100vh;
-  background:linear-gradient(#ffc0cb,#ff69b4);
+  height:100vh;
   font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(#ffc0cb,#ff69b4);
   color:#fff;
   text-align:center;
   overflow:hidden;
 }
+
 .slide{
   display:none;
-  padding:15px;
-  max-width:95%;
+  padding:20px;
+  max-width:420px;
   margin:auto;
 }
-.active{display:block;}
+.active{display:block}
+
+h1{font-size:1.9rem}
+h2{font-size:1.2rem;font-weight:400}
+p{font-size:1rem}
 
 button{
   margin-top:18px;
   padding:12px 26px;
   border:none;
-  border-radius:25px;
-  font-size:1rem;
+  border-radius:30px;
   background:#ff3366;
-  color:#fff;
+  color:white;
+  font-size:1rem;
 }
 
-h1{font-size:1.8rem;}
-h2{font-size:1.1rem;font-weight:400;}
-p{font-size:0.95rem;}
+.cake{font-size:5rem;animation:bounce 1.5s infinite}
 
-.cake{
-  font-size:4.5rem;
-  margin:10px 0;
-  animation:bounce 1.5s infinite;
-}
-
-/* COUNTDOWN */
 .countdown{
   display:flex;
   justify-content:center;
-  gap:8px;
-  margin:12px 0;
+  gap:10px;
+  margin:15px 0;
 }
-.box{
+.time-box{
   background:rgba(255,255,255,0.25);
-  padding:8px 10px;
+  padding:10px;
   border-radius:12px;
-  min-width:55px;
+  min-width:65px;
 }
-.box span{
-  font-size:1.2rem;
+.time-box span{
+  display:block;
+  font-size:1.3rem;
   font-weight:bold;
 }
 
-/* ANIMATIONS */
-.balloon,.heart,.fall{
+.balloon, .flower, .heart, .ribbon{
   position:absolute;
-  font-size:1.6rem;
+  bottom:-100px;
+  animation:float 7s linear infinite;
 }
-.balloon{bottom:-100px;animation:fly 8s linear infinite;}
-.heart{bottom:-40px;animation:float 6s linear infinite;}
-.fall{top:-40px;animation:fall 9s linear infinite;}
+
+.balloon{font-size:2.5rem}
+.flower{font-size:1.8rem}
+.heart{font-size:1.5rem}
+.ribbon{font-size:2rem}
+
+@keyframes float{
+  to{transform:translateY(-120vh)}
+}
+@keyframes bounce{
+  50%{transform:translateY(-15px)}
+}
+
+.dark{
+  background:black;
+  height:100vh;
+}
+
+.bg{
+  background:url('bg.jpg') center/cover no-repeat;
+  border-radius:20px;
+  padding:20px;
+}
 
 .message-box{
-  background:rgba(255,255,255,0.22);
-  padding:16px;
+  background:rgba(255,255,255,0.2);
+  padding:18px;
   border-radius:16px;
+  font-size:0.95rem;
   margin-top:15px;
-  font-size:0.9rem;
 }
 
-.love{
-  margin-top:18px;
-  font-size:1.6rem;
-  font-weight:bold;
-  text-shadow:0 0 12px #fff,0 0 20px #ff3366;
-  animation:pulse 2.5s infinite;
+.fade{animation:fade 2s forwards}
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
 }
-
-@keyframes bounce{50%{transform:translateY(-10px)}}
-@keyframes fly{to{transform:translateY(-120vh)}}
-@keyframes float{to{transform:translateY(-120vh)}}
-@keyframes fall{to{transform:translateY(120vh)}}
-@keyframes pulse{50%{transform:scale(1.08)}}
 </style>
 </head>
 
@@ -98,19 +108,20 @@ p{font-size:0.95rem;}
 
 <!-- SLIDE 1 -->
 <div class="slide active" id="s1">
-  <h1>Sharmin’s Birthday Countdown 🎂</h1>
+  <h1>Counting down to Sharmin’s special birthday 🎂</h1>
   <div class="cake">🎂</div>
-  <p>You mean more to me than words can express</p>
+
+  <p>You mean more to me than words I can express</p>
 
   <div class="countdown">
-    <div class="box"><span id="d">0</span>D</div>
-    <div class="box"><span id="h">0</span>H</div>
-    <div class="box"><span id="m">0</span>M</div>
-    <div class="box"><span id="s">0</span>S</div>
+    <div class="time-box"><span id="d">0</span>Days</div>
+    <div class="time-box"><span id="h">0</span>Hours</div>
+    <div class="time-box"><span id="m">0</span>Min</div>
+    <div class="time-box"><span id="s">0</span>Sec</div>
   </div>
 
-  <p>✨ Something special awaits you ✨</p>
-  <button onclick="start()">Let’s Celebrate 💕</button>
+  <p>✨ A special celebration awaits you ✨</p>
+  <button onclick="go(1,2)">Let’s Celebrate 💕</button>
 </div>
 
 <!-- SLIDE 2 -->
@@ -119,84 +130,93 @@ p{font-size:0.95rem;}
   <div class="balloon" style="left:45%">🎈</div>
   <div class="balloon" style="left:75%">🎈</div>
 
-  <h1>Happy Birthday Sharmin 🎉</h1>
+  <h1>Happy Birthday Sharmin 🎉💗</h1>
   <div class="cake">🎂</div>
-  <button onclick="go(2,3)">Next 🎈</button>
+  <p>Today isn’t just a birthday… it’s about YOU</p>
+
+  <button onclick="go(2,3)">Do you want to see what I made for you? 💝</button>
 </div>
 
 <!-- SLIDE 3 -->
 <div class="slide" id="s3">
-  <h2>Do you want to see what I made for you? 💝</h2>
-  <button onclick="go(3,4)">Yes 💖</button><br>
-  <button onclick="go(3,4)">Of course 😉</button>
+  <h2>I really hope you’ll like it 🤍</h2>
+  <p>Get ready…</p>
+  <h1 id="count">1</h1>
+  <button onclick="go(3,4)">Let’s See ✨</button>
 </div>
 
 <!-- SLIDE 4 -->
-<div class="slide" id="s4">
-  <p>I was trying from the last two days…<br>thinking what I could make for you</p>
-  <button onclick="go(4,5)">See ✨</button>
+<div class="slide dark" id="s4">
+  <h2>Sometimes the most beautiful things<br>appear after darkness…</h2>
+  <button onclick="lightOn()">Turn on the light 💡</button>
 </div>
 
 <!-- SLIDE 5 -->
-<div class="slide" id="s5">
-  <h2>Turn on the light 💡</h2>
-  <button onclick="lightOn()">Turn On ❤️</button>
+<div class="slide bg" id="s5">
+  <div class="flower" style="left:20%">🌸</div>
+  <div class="flower" style="left:60%">🌸</div>
+  <div class="ribbon" style="left:40%">🎀</div>
+
+  <h1 class="fade">Happy Birthday Sharmin 🎂💗</h1>
+  <p class="fade">You light up my world in ways you don’t even realize</p>
+  <p class="fade">Today is about celebrating YOU</p>
+
+  <button onclick="go(5,6)">From My Heart 🤍</button>
 </div>
 
-<!-- FINAL SLIDE -->
+<!-- SLIDE 6 -->
 <div class="slide" id="s6">
+  <div class="heart" style="left:20%">❤️</div>
+  <div class="heart" style="left:50%">❤️</div>
+  <div class="heart" style="left:80%">❤️</div>
 
-  <div class="fall" style="left:10%">🌸</div>
-  <div class="fall" style="left:30%">🤍</div>
-  <div class="fall" style="left:50%">🎀</div>
-  <div class="fall" style="left:70%">🌸</div>
-
-  <div class="heart" style="left:25%">❤️</div>
-  <div class="heart" style="left:55%">❤️</div>
-
-  <h1>Happy Birthday Sharmin 💗</h1>
-  <div class="cake">🎂</div>
-
-  <button onclick="showHeart()">From My Heart 💓</button>
-
-  <div id="finalMessage" class="message-box" style="display:none">
+  <div class="message-box">
     You are not just someone I talk to, you are my everything in the calmest and most meaningful way.<br><br>
-    Real connection is patience, understanding, and choosing each other daily.<br><br>
-    You are special, valuable, and deeply important to me ❤️
-    <div class="love">I LOVE YOU 3000 💖</div>
+    It’s been 309 days since we are together, and 339 days since we started talking.<br><br>
+    Real connection is not drama, it’s patience, understanding, and choosing each other every day.<br><br>
+    I don’t promise perfection, but honesty, loyalty, and standing with you in silence and conversation.<br><br>
+    I’m sorry for the times I hurt you.<br><br>
+    You are special. You are valuable. And you mean a lot to me — deeply, honestly, from my heart ❤️
   </div>
+
+  <h1 style="margin-top:15px">I LOVE YOU 3000 ❤️</h1>
 </div>
 
 <audio id="music" src="music.mp3"></audio>
 
 <script>
-const target=new Date("2026-01-05T00:00:00").getTime();
-setInterval(()=>{
-  const n=Date.now();
-  let d=target-n; if(d<0)d=0;
-  d=Math.floor(d/1000);
-  document.getElementById("d").innerText=Math.floor(d/86400);
-  document.getElementById("h").innerText=Math.floor(d/3600)%24;
-  document.getElementById("m").innerText=Math.floor(d/60)%60;
-  document.getElementById("s").innerText=d%60;
-},1000);
-
-function start(){
-  const m=document.getElementById("music");
-  m.volume=0; m.play().catch(()=>{});
-  let v=0;
-  const f=setInterval(()=>{if(v<1){v+=0.05;m.volume=v}else clearInterval(f)},200);
-  go(1,2);
-}
 function go(a,b){
   document.getElementById("s"+a).classList.remove("active");
   document.getElementById("s"+b).classList.add("active");
 }
-function lightOn(){go(5,6);}
-function showHeart(){
-  document.getElementById("finalMessage").style.display="block";
+
+function lightOn(){
+  go(4,5);
+  document.getElementById("music").play().catch(()=>{});
 }
+
+const target=new Date("2026-01-05T00:00:00").getTime();
+setInterval(()=>{
+  let now=new Date().getTime();
+  let diff=target-now; if(diff<0)diff=0;
+  d=Math.floor(diff/(1000*60*60*24));
+  h=Math.floor((diff/(1000*60*60))%24);
+  m=Math.floor((diff/(1000*60))%60);
+  s=Math.floor((diff/1000)%60);
+  d=document.getElementById("d").innerText=d;
+  document.getElementById("h").innerText=h;
+  document.getElementById("m").innerText=m;
+  document.getElementById("s").innerText=s;
+},1000);
+
+let c=1;
+setInterval(()=>{
+  if(document.getElementById("s3").classList.contains("active")){
+    c++; if(c>3)c=1;
+    document.getElementById("count").innerText=c;
+  }
+},1000);
 </script>
 
 </body>
-  </html>
+</html>
