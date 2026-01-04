@@ -2,143 +2,228 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday 💖</title>
+<title>Sharmin’s Birthday 💗</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
 body{
-  background:linear-gradient(135deg,#ff9ecf,#ffd6e8);
-  color:white;
+  margin:0;
+  height:100vh;
+  background:linear-gradient(#ffb6c1,#ff69b4);
+  font-family:'Segoe UI',sans-serif;
+  color:#fff;
   text-align:center;
   overflow:hidden;
 }
-.slide{
-  display:none;
-  height:100vh;
-  padding:30px;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-}
-.slide.active{display:flex;}
+.slide{display:none;padding:25px;max-width:900px;margin:auto;}
+.active{display:block;}
+
 button{
-  padding:14px 28px;
+  margin-top:20px;
+  padding:14px 35px;
   border:none;
   border-radius:30px;
-  background:#ff4f87;
-  color:white;
-  font-size:16px;
-  margin-top:20px;
+  font-size:1.1rem;
+  background:#ff3366;
+  color:#fff;
+  cursor:pointer;
+  transition:all .3s ease;
 }
-.countdown{
-  display:flex;
-  gap:10px;
-  margin:20px 0;
-}
-.box{
-  background:rgba(255,255,255,0.25);
-  padding:12px;
-  border-radius:12px;
-  min-width:70px;
-}
-.float{
+button:hover{background:#ff6699;transform:scale(1.05);}
+
+h1{font-size:2.4rem;}
+h2{font-weight:400;}
+
+.cake{font-size:7rem;animation:bounce 1.5s infinite;}
+.heart{
   position:absolute;
-  bottom:-80px;
-  font-size:30px;
-  animation:fly 6s linear infinite;
+  bottom:-50px;
+  font-size:2rem;
+  animation:float 6s linear infinite;
+}
+.heart:nth-child(1){left:10%}
+.heart:nth-child(2){left:30%;animation-delay:2s}
+.heart:nth-child(3){left:50%;animation-delay:4s}
+.heart:nth-child(4){left:70%;animation-delay:1s}
+.heart:nth-child(5){left:90%;animation-delay:3s}
+
+.balloon{
+  position:absolute;
+  bottom:-150px;
+  font-size:3rem;
+  animation:fly 7s linear infinite;
+}
+.balloon:nth-child(1){left:15%}
+.balloon:nth-child(2){left:40%;animation-delay:2s}
+.balloon:nth-child(3){left:65%;animation-delay:4s}
+.balloon:nth-child(4){left:80%;animation-delay:3s}
+.balloon:nth-child(5){left:25%;animation-delay:1s}
+
+.flower{
+  position:absolute;
+  width:40px;
+  height:40px;
+  background:url('https://cdn-icons-png.flaticon.com/512/616/616408.png') no-repeat center/contain;
+  bottom:-60px;
+  animation:floatUp 10s linear infinite;
+}
+.flower:nth-child(1){left:5%;animation-delay:0s}
+.flower:nth-child(2){left:20%;animation-delay:3s}
+.flower:nth-child(3){left:40%;animation-delay:6s}
+.flower:nth-child(4){left:60%;animation-delay:2s}
+.flower:nth-child(5){left:80%;animation-delay:5s}
+
+.count-box{
+  display:inline-block;
+  background:rgba(255,255,255,0.25);
+  padding:10px 15px;
+  margin:5px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.message-box{
+  background:rgba(255,255,255,0.2);
+  padding:25px;
+  border-radius:20px;
+  margin-top:25px;
+  animation:fadeIn 3s forwards;
+}
+
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-20px)}
 }
 @keyframes fly{
-  to{transform:translateY(-120vh);opacity:0;}
+  to{transform:translateY(-120vh)}
+}
+@keyframes float{
+  to{transform:translateY(-120vh)}
+}
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes floatUp{
+  to{transform:translateY(-120vh) rotate(360deg);}
 }
 </style>
 </head>
 
 <body>
 
-<audio id="music" src="music.mp3" loop></audio>
-
 <!-- SLIDE 1 -->
-<div class="slide active">
-  <h1>🎂 Birthday Countdown 🎂</h1>
-  <p>Something special is coming 💕</p>
-
-  <div class="countdown">
-    <div class="box"><div id="d">0</div>Days</div>
-    <div class="box"><div id="h">0</div>Hours</div>
-    <div class="box"><div id="m">0</div>Minutes</div>
-    <div class="box"><div id="s">0</div>Seconds</div>
-  </div>
-
-  <button onclick="next()">Next 💖</button>
+<div class="slide active" id="s1">
+  <h1>Counting down to Sharmin’s special birthday 🎂</h1>
+  <div class="cake">🎂</div>
+  <h2>You mean more to me than words can express</h2>
+  <div id="countdown"></div>
+  <p>✨ A special celebration awaits you at midnight ✨</p>
+  <button onclick="go(1,2)">Let’s Celebrate 💕</button>
 </div>
 
 <!-- SLIDE 2 -->
-<div class="slide">
-  <h1>🎈 Happy Birthday 🎈</h1>
-  <p>You make the world brighter just by being in it ✨</p>
-  <button onclick="next()">Next 🎁</button>
+<div class="slide" id="s2">
+  <div class="balloon">🎈</div><div class="balloon">🎈</div>
+  <div class="balloon">🎈</div><div class="balloon">🎈</div>
+  <div class="balloon">🎈</div>
+  <div class="flower"></div><div class="flower"></div>
+  <div class="flower"></div><div class="flower"></div>
+  <div class="flower"></div>
+
+  <h1>Happy Birthday Sharmin 🎉</h1>
+  <div class="cake">🎂</div>
+  <h2>Ready for your surprise?</h2>
+  <button onclick="go(2,3); playMusic()">Let’s Celebrate 🎈</button>
 </div>
 
 <!-- SLIDE 3 -->
-<div class="slide">
-  <h1>🌸 For You 🌸</h1>
-  <p>May Allah fill your life with barakah, peace, love & endless smiles 🤍</p>
-  <button onclick="next()">Next 🌷</button>
+<div class="slide" id="s3">
+  <h1>Do you want to see what I made for you? 💝</h1>
+  <button onclick="go(3,4)">Yes 💖</button>
+  <br>
+  <button onclick="go(3,4)">No (but still yes 😉)</button>
 </div>
 
 <!-- SLIDE 4 -->
-<div class="slide">
-  <h1>🎂 A Special Message 🎂</h1>
-  <p>
-    You are rare, precious, and deeply loved.<br>
-    May every dream you hold come true,<br>
-    and may your heart always stay soft & kind 💞
-  </p>
-  <button onclick="playMusic(); next()">Final 🎉</button>
+<div class="slide" id="s4">
+  <h2>I was trying from the last two days…</h2>
+  <h2>thinking what I could make for you</h2>
+  <button onclick="go(4,5)">Let’s See ✨</button>
 </div>
 
 <!-- SLIDE 5 -->
-<div class="slide">
-  <h1>💖 Happy Birthday 💖</h1>
-  <p>Enjoy your day, your song & your moment 🎶🎂</p>
+<div class="slide" id="s5">
+  <h1>Turn on the light 💡</h1>
+  <button onclick="lightOn()">Turn On the Light ❤️</button>
 </div>
 
+<!-- SLIDE 6 FINAL -->
+<div class="slide" id="s6">
+  <div class="heart">❤️</div><div class="heart">❤️</div>
+  <div class="heart">❤️</div><div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+
+  <h1>Happy Birthday Sharmin 🎂💗</h1>
+  <div class="cake">🎂</div>
+
+  <button onclick="showHeart()">💓 From My Heart 💓</button>
+
+  <div id="finalMessage" class="message-box" style="display:none">
+    You are not just someone I talk to,  
+    you are my everything in the calmest and most meaningful way.<br><br>
+
+    It’s been 309 days of us,  
+    and 339 days since we started talking.  
+    I learned that real connection isn’t drama,  
+    it’s patience, understanding, and choosing each other daily.<br><br>
+
+    You matter to me — because of respect, trust,  
+    and the peace you bring into my life.<br><br>
+
+    I’m sorry for the times I hurt you.  
+    You are special. You are valuable.  
+    And you mean a lot to me — deeply, honestly, from my heart ❤️
+  </div>
+</div>
+
+<audio id="music" src="music.mp3" preload="auto"></audio>
+
 <script>
-let slides=document.querySelectorAll('.slide');
-let i=0;
-function next(){
-  slides[i].classList.remove('active');
-  i++;
-  if(i<slides.length) slides[i].classList.add('active');
+const target=new Date("2026-01-05T00:00:00").getTime();
+setInterval(()=>{
+  const now=new Date().getTime();
+  let d=target-now; if(d<0)d=0;
+  const days=Math.floor(d/(1000*60*60*24));
+  const hrs=Math.floor((d/(1000*60*60))%24);
+  const min=Math.floor((d/(1000*60))%60);
+  const sec=Math.floor((d/1000)%60);
+  document.getElementById("countdown").innerHTML=
+    `<div class='count-box'>${days}d</div>
+     <div class='count-box'>${hrs}h</div>
+     <div class='count-box'>${min}m</div>
+     <div class='count-box'>${sec}s</div>`;
+},1000);
+
+function go(a,b){
+  document.getElementById("s"+a).classList.remove("active");
+  document.getElementById("s"+b).classList.add("active");
+}
+
+function lightOn(){
+  document.getElementById("s5").classList.remove("active");
+  document.getElementById("s6").classList.add("active");
+}
+
+function showHeart(){
+  document.getElementById("finalMessage").style.display="block";
 }
 
 function playMusic(){
-  document.getElementById("music").play();
+  const music=document.getElementById("music");
+  music.play().catch(()=>{});
 }
-
-// Countdown (set birthday date here)
-let target=new Date("2026-01-10T00:00:00").getTime();
-setInterval(()=>{
-  let now=new Date().getTime();
-  let diff=target-now;
-  if(diff<0) diff=0;
-  d.innerText=Math.floor(diff/(1000*60*60*24));
-  h.innerText=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  m.innerText=Math.floor((diff%(1000*60*60))/(1000*60));
-  s.innerText=Math.floor((diff%(1000*60))/1000);
-},1000);
-
-// Balloons & flowers
-setInterval(()=>{
-  let e=document.createElement("div");
-  e.className="float";
-  e.innerText=Math.random()>0.5?"🎈":"🌸";
-  e.style.left=Math.random()*100+"vw";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),6000);
-},600);
 </script>
 
 </body>
-  </html>
+</html>
