@@ -26,15 +26,14 @@ button{
   font-size:1.1rem;
   background:#ff3366;
   color:#fff;
-  cursor:pointer;
-  transition:all .3s ease;
 }
-button:hover{background:#ff6699;transform:scale(1.05);}
 
 h1{font-size:2.4rem;}
 h2{font-weight:400;}
 
 .cake{font-size:7rem;animation:bounce 1.5s infinite;}
+
+/* HEARTS */
 .heart{
   position:absolute;
   bottom:-50px;
@@ -47,6 +46,7 @@ h2{font-weight:400;}
 .heart:nth-child(4){left:70%;animation-delay:1s}
 .heart:nth-child(5){left:90%;animation-delay:3s}
 
+/* BALLOONS */
 .balloon{
   position:absolute;
   bottom:-150px;
@@ -56,30 +56,26 @@ h2{font-weight:400;}
 .balloon:nth-child(1){left:15%}
 .balloon:nth-child(2){left:40%;animation-delay:2s}
 .balloon:nth-child(3){left:65%;animation-delay:4s}
-.balloon:nth-child(4){left:80%;animation-delay:3s}
-.balloon:nth-child(5){left:25%;animation-delay:1s}
 
+/* FLOWERS */
 .flower{
   position:absolute;
-  width:40px;
-  height:40px;
-  background:url('https://cdn-icons-png.flaticon.com/512/616/616408.png') no-repeat center/contain;
-  bottom:-60px;
-  animation:floatUp 10s linear infinite;
+  top:-50px;
+  font-size:2rem;
+  animation:fall 8s linear infinite;
 }
-.flower:nth-child(1){left:5%;animation-delay:0s}
-.flower:nth-child(2){left:20%;animation-delay:3s}
-.flower:nth-child(3){left:40%;animation-delay:6s}
-.flower:nth-child(4){left:60%;animation-delay:2s}
-.flower:nth-child(5){left:80%;animation-delay:5s}
+.flower:nth-child(1){left:10%}
+.flower:nth-child(2){left:25%;animation-delay:2s}
+.flower:nth-child(3){left:45%;animation-delay:4s}
+.flower:nth-child(4){left:65%;animation-delay:1s}
+.flower:nth-child(5){left:85%;animation-delay:3s}
 
-.count-box{
-  display:inline-block;
-  background:rgba(255,255,255,0.25);
-  padding:10px 15px;
-  margin:5px;
-  border-radius:10px;
-  font-weight:bold;
+/* CONFETTI / RIBBONS */
+.confetti{
+  position:absolute;
+  top:-20px;
+  font-size:1.5rem;
+  animation:confettiFall 5s linear infinite;
 }
 
 .message-box{
@@ -100,12 +96,15 @@ h2{font-weight:400;}
 @keyframes float{
   to{transform:translateY(-120vh)}
 }
+@keyframes fall{
+  to{transform:translateY(120vh)}
+}
+@keyframes confettiFall{
+  to{transform:translateY(120vh) rotate(360deg)}
+}
 @keyframes fadeIn{
   from{opacity:0}
   to{opacity:1}
-}
-@keyframes floatUp{
-  to{transform:translateY(-120vh) rotate(360deg);}
 }
 </style>
 </head>
@@ -117,31 +116,27 @@ h2{font-weight:400;}
   <h1>Counting down to Sharmin’s special birthday 🎂</h1>
   <div class="cake">🎂</div>
   <h2>You mean more to me than words can express</h2>
-  <div id="countdown"></div>
+  <h2 id="countdown"></h2>
   <p>✨ A special celebration awaits you at midnight ✨</p>
   <button onclick="go(1,2)">Let’s Celebrate 💕</button>
 </div>
 
 <!-- SLIDE 2 -->
 <div class="slide" id="s2">
-  <div class="balloon">🎈</div><div class="balloon">🎈</div>
-  <div class="balloon">🎈</div><div class="balloon">🎈</div>
   <div class="balloon">🎈</div>
-  <div class="flower"></div><div class="flower"></div>
-  <div class="flower"></div><div class="flower"></div>
-  <div class="flower"></div>
+  <div class="balloon">🎈</div>
+  <div class="balloon">🎈</div>
 
   <h1>Happy Birthday Sharmin 🎉</h1>
   <div class="cake">🎂</div>
   <h2>Ready for your surprise?</h2>
-  <button onclick="go(2,3); playMusic()">Let’s Celebrate 🎈</button>
+  <button onclick="go(2,3)">Let’s Celebrate 🎈</button>
 </div>
 
 <!-- SLIDE 3 -->
 <div class="slide" id="s3">
   <h1>Do you want to see what I made for you? 💝</h1>
-  <button onclick="go(3,4)">Yes 💖</button>
-  <br>
+  <button onclick="go(3,4)">Yes 💖</button><br>
   <button onclick="go(3,4)">No (but still yes 😉)</button>
 </div>
 
@@ -158,10 +153,21 @@ h2{font-weight:400;}
   <button onclick="lightOn()">Turn On the Light ❤️</button>
 </div>
 
-<!-- SLIDE 6 FINAL -->
+<!-- FINAL SLIDE -->
 <div class="slide" id="s6">
-  <div class="heart">❤️</div><div class="heart">❤️</div>
-  <div class="heart">❤️</div><div class="heart">❤️</div>
+
+  <!-- Flowers -->
+  <div class="flower">🌸</div>
+  <div class="flower">🌸</div>
+  <div class="flower">🌸</div>
+  <div class="flower">🌸</div>
+  <div class="flower">🌸</div>
+
+  <!-- Hearts -->
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
+  <div class="heart">❤️</div>
   <div class="heart">❤️</div>
 
   <h1>Happy Birthday Sharmin 🎂💗</h1>
@@ -175,6 +181,7 @@ h2{font-weight:400;}
 
     It’s been 309 days of us,  
     and 339 days since we started talking.  
+    AND FOREVER TO GO
     I learned that real connection isn’t drama,  
     it’s patience, understanding, and choosing each other daily.<br><br>
 
@@ -184,12 +191,14 @@ h2{font-weight:400;}
     I’m sorry for the times I hurt you.  
     You are special. You are valuable.  
     And you mean a lot to me — deeply, honestly, from my heart ❤️
+    I LOVE YOU 3000 , FOREVER 🤍
   </div>
 </div>
 
-<audio id="music" src="music.mp3" preload="auto"></audio>
+<audio id="music" src="music.mp3"></audio>
 
 <script>
+/* COUNTDOWN */
 const target=new Date("2026-01-05T00:00:00").getTime();
 setInterval(()=>{
   const now=new Date().getTime();
@@ -199,29 +208,32 @@ setInterval(()=>{
   const min=Math.floor((d/(1000*60))%60);
   const sec=Math.floor((d/1000)%60);
   document.getElementById("countdown").innerHTML=
-    `<div class='count-box'>${days}d</div>
-     <div class='count-box'>${hrs}h</div>
-     <div class='count-box'>${min}m</div>
-     <div class='count-box'>${sec}s</div>`;
+    `${days} Days ${hrs} Hours ${min} Minutes ${sec} Seconds`;
 },1000);
 
+/* SLIDE NAV */
 function go(a,b){
   document.getElementById("s"+a).classList.remove("active");
   document.getElementById("s"+b).classList.add("active");
 }
 
+/* LIGHT + MUSIC FADE */
 function lightOn(){
   document.getElementById("s5").classList.remove("active");
   document.getElementById("s6").classList.add("active");
+
+  const music=document.getElementById("music");
+  music.volume=0;
+  music.play().catch(()=>{});
+  let v=0;
+  const fade=setInterval(()=>{
+    if(v<1){v+=0.05; music.volume=v;}
+    else clearInterval(fade);
+  },200);
 }
 
 function showHeart(){
   document.getElementById("finalMessage").style.display="block";
-}
-
-function playMusic(){
-  const music=document.getElementById("music");
-  music.play().catch(()=>{});
 }
 </script>
 
