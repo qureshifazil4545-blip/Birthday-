@@ -17,6 +17,7 @@ body{
   overflow:hidden;
 }
 
+/* SLIDES */
 .slide{
   display:none;
   padding:20px;
@@ -25,10 +26,12 @@ body{
 }
 .active{display:block}
 
+/* TEXT */
 h1{font-size:1.9rem}
 h2{font-size:1.2rem;font-weight:400}
 p{font-size:1rem}
 
+/* BUTTON */
 button{
   margin-top:18px;
   padding:12px 26px;
@@ -39,8 +42,13 @@ button{
   font-size:1rem;
 }
 
-.cake{font-size:5rem;animation:bounce 1.5s infinite}
+/* CAKE */
+.cake{
+  font-size:5rem;
+  animation:bounce 1.5s infinite;
+}
 
+/* COUNTDOWN BOXES */
 .countdown{
   display:flex;
   justify-content:center;
@@ -59,17 +67,18 @@ button{
   font-weight:bold;
 }
 
-.balloon, .flower, .heart, .ribbon{
+/* FLOATING DECOR */
+.balloon,.flower,.heart,.ribbon{
   position:absolute;
   bottom:-100px;
   animation:float 7s linear infinite;
 }
-
 .balloon{font-size:2.5rem}
 .flower{font-size:1.8rem}
 .heart{font-size:1.5rem}
 .ribbon{font-size:2rem}
 
+/* ANIMATIONS */
 @keyframes float{
   to{transform:translateY(-120vh)}
 }
@@ -77,17 +86,15 @@ button{
   50%{transform:translateY(-15px)}
 }
 
-.dark{
-  background:black;
-  height:100vh;
-}
-
+/* DARK & BG */
+.dark{background:black;height:100vh}
 .bg{
-  background:url('bg.jpg') center/cover no-repeat;
+  background:rgba(255,255,255,0.15);
   border-radius:20px;
   padding:20px;
 }
 
+/* MESSAGE */
 .message-box{
   background:rgba(255,255,255,0.2);
   padding:18px;
@@ -96,6 +103,7 @@ button{
   margin-top:15px;
 }
 
+/* FADE */
 .fade{animation:fade 2s forwards}
 @keyframes fade{
   from{opacity:0}
@@ -141,8 +149,7 @@ button{
 <div class="slide" id="s3">
   <h2>I really hope you’ll like it 🤍</h2>
   <p>Get ready…</p>
-  <h1 id="count">1</h1>
-  <button onclick="go(3,4)">Let’s See ✨</button>
+  <h1 id="count">3</h1>
 </div>
 
 <!-- SLIDE 4 -->
@@ -174,7 +181,6 @@ button{
     You are not just someone I talk to, you are my everything in the calmest and most meaningful way.<br><br>
     It’s been 309 days since we are together, and 339 days since we started talking.<br><br>
     Real connection is not drama, it’s patience, understanding, and choosing each other every day.<br><br>
-    I don’t promise perfection, but honesty, loyalty, and standing with you in silence and conversation.<br><br>
     I’m sorry for the times I hurt you.<br><br>
     You are special. You are valuable. And you mean a lot to me — deeply, honestly, from my heart ❤️
   </div>
@@ -185,38 +191,49 @@ button{
 <audio id="music" src="music.mp3"></audio>
 
 <script>
+/* SLIDE NAV */
 function go(a,b){
   document.getElementById("s"+a).classList.remove("active");
   document.getElementById("s"+b).classList.add("active");
+
+  if(b === 3){
+    start321();
+  }
 }
 
+/* LIGHT ON */
 function lightOn(){
   go(4,5);
   document.getElementById("music").play().catch(()=>{});
 }
 
+/* MAIN COUNTDOWN */
 const target=new Date("2026-01-05T00:00:00").getTime();
 setInterval(()=>{
   let now=new Date().getTime();
   let diff=target-now; if(diff<0)diff=0;
-  d=Math.floor(diff/(1000*60*60*24));
-  h=Math.floor((diff/(1000*60*60))%24);
-  m=Math.floor((diff/(1000*60))%60);
-  s=Math.floor((diff/1000)%60);
-  d=document.getElementById("d").innerText=d;
-  document.getElementById("h").innerText=h;
-  document.getElementById("m").innerText=m;
-  document.getElementById("s").innerText=s;
+  document.getElementById("d").innerText=Math.floor(diff/(1000*60*60*24));
+  document.getElementById("h").innerText=Math.floor((diff/(1000*60*60))%24);
+  document.getElementById("m").innerText=Math.floor((diff/(1000*60))%60);
+  document.getElementById("s").innerText=Math.floor((diff/1000)%60);
 },1000);
 
-let c=1;
-setInterval(()=>{
-  if(document.getElementById("s3").classList.contains("active")){
-    c++; if(c>3)c=1;
-    document.getElementById("count").innerText=c;
-  }
-},1000);
+/* 3-2-1 COUNTDOWN */
+function start321(){
+  let n=3;
+  const el=document.getElementById("count");
+  el.innerText=n;
+  const t=setInterval(()=>{
+    n--;
+    if(n>0){
+      el.innerText=n;
+    }else{
+      clearInterval(t);
+      go(3,4);
+    }
+  },1000);
+}
 </script>
 
 </body>
-</html>
+                                 </html>
